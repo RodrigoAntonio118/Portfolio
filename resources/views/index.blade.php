@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Nombre | Desarrollador de Software</title>
+    
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <style>
         /* Variables */
         :root {
@@ -834,7 +836,7 @@
             </div>
             <div class="about-grid">
                 <div class="about-image">
-                    <img src="img/ing2.jpeg" alt="Foto de Perfil">
+                    <img src="{{ asset('img/ing2.jpeg') }}" alt="Foto de Perfil">
                 </div>
                 <div class="about-content">
                     <h3>Desarrollador multidisciplinario con pasión por la innovación</h3>
@@ -1056,81 +1058,92 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contacto</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>¿Tienes un proyecto en mente?</h3>
-                    <p>Estoy disponible para trabajar en proyectos desafiantes que requieran soluciones innovadoras. Ya sea que necesites una aplicación móvil, un sistema web o una consultoría técnica, contáctame para discutir cómo puedo ayudarte.</p>
-                    
-                    <div class="contact-detail">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Email</h4>
-                            <p>contacto@tudominio.com</p>
-                        </div>
+   <!-- Contact Section -->
+   <section id="contact" class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Contacto</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>¿Tienes un proyecto en mente?</h3>
+                <p>Estoy disponible para trabajar en proyectos desafiantes que requieran soluciones innovadoras. Ya sea que necesites una aplicación móvil, un sistema web o una consultoría técnica, contáctame para discutir cómo puedo ayudarte.</p>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
                     </div>
-                    
-                    <div class="contact-detail">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Teléfono</h4>
-                            <p>+52 (123) 456 7890</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-detail">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Ubicación</h4>
-                            <p>Ciudad de México, México</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-detail">
-                        <div class="contact-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Disponibilidad</h4>
-                            <p>Disponible para nuevos proyectos</p>
-                        </div>
+                    <div class="contact-text">
+                        <h4>Email</h4>
+                        <p>kayvazquez65@gmail.com</p>
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Nombre Completo *" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email *" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Empresa">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Asunto *" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="Mensaje *" required></textarea>
-                        </div>
-                        <button type="submit" class="btn" style="width: 100%;">Enviar Mensaje</button>
-                    </form>
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Teléfono</h4>
+                        <p>+52 (936) 104 8925</p>
+                    </div>
+                </div>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Ubicación</h4>
+                        <p>Villahermosa, Tabasco</p>
+                    </div>
+                </div>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Disponibilidad</h4>
+                        <p>Disponible para nuevos proyectos</p>
+                    </div>
                 </div>
             </div>
+            
+            <div class="contact-form">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                
+                <form action="{{ route('contact.send') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="Nombre Completo *" required>
+                        @error('name')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Email *" required>
+                        @error('email')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="company" class="form-control" placeholder="Empresa">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" class="form-control" placeholder="Asunto *" required>
+                        @error('subject')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" class="form-control" placeholder="Mensaje *" required></textarea>
+                        @error('message')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensaje</button>
+                </form>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1237,5 +1250,136 @@
             });
         });
     </script>
+
+
+
+<!-- scrip del contact-detail -->
+    <script>
+    // Mostrar mensajes de notificación
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    
+    if(status === 'success') {
+        alert('¡Mensaje enviado correctamente! Pronto me pondré en contacto contigo.');
+    }
+    
+    if(status === 'error') {
+        alert('Hubo un error al enviar el mensaje. Por favor intenta nuevamente más tarde.');
+    }
+    </script>
+
+
+
+
+
+
+
+{{-- para recargar la pagina sin recargar la pagina jajaja  --}}
+
+// Agregar este código al final de tu archivo HTML, justo antes del cierre de </body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionar el formulario de contacto
+    const contactForm = document.querySelector('.contact-form form');
+    
+    // Crear el elemento para mostrar alertas
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'custom-alert';
+    alertDiv.style.display = 'none';
+    alertDiv.style.padding = '15px';
+    alertDiv.style.borderRadius = '5px';
+    alertDiv.style.marginBottom = '20px';
+    alertDiv.style.fontWeight = '500';
+    alertDiv.style.transition = 'all 0.3s ease';
+    
+    // Insertar el div de alerta al principio del formulario
+    contactForm.insertBefore(alertDiv, contactForm.firstChild);
+    
+    // Agregar estilos para el botón
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.innerHTML;
+    
+    // Agregar un listener al evento submit del formulario
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Cambiar el estado del botón
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitButton.style.backgroundColor = 'var(--secondary-color)';
+        
+        // Obtener los datos del formulario
+        const formData = new FormData(contactForm);
+        
+        // Enviar la petición usando Fetch API
+        fetch(contactForm.getAttribute('action'), {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Restaurar el botón después de 1 segundo para mostrar la animación
+            setTimeout(() => {
+                // Restaurar el botón
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                submitButton.style.backgroundColor = '';
+                
+                // Mostrar mensaje de éxito
+                if (data.success) {
+                    // Limpiar el formulario
+                    contactForm.reset();
+                    
+                    // Mostrar alerta de éxito
+                    alertDiv.style.display = 'block';
+                    alertDiv.style.backgroundColor = '#d4edda';
+                    alertDiv.style.color = '#155724';
+                    alertDiv.style.border = '1px solid #c3e6cb';
+                    alertDiv.innerHTML = '<i class="fas fa-check-circle"></i> ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.';
+                    
+                    // Auto ocultar la alerta después de 5 segundos
+                    setTimeout(() => {
+                        alertDiv.style.opacity = '0';
+                        setTimeout(() => {
+                            alertDiv.style.display = 'none';
+                            alertDiv.style.opacity = '1';
+                        }, 500);
+                    }, 5000);
+                } else {
+                    // Mostrar errores si existen
+                    alertDiv.style.display = 'block';
+                    alertDiv.style.backgroundColor = '#f8d7da';
+                    alertDiv.style.color = '#721c24';
+                    alertDiv.style.border = '1px solid #f5c6cb';
+                    alertDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (data.message || 'Hubo un error al enviar el mensaje. Por favor intenta nuevamente.');
+                }
+            }, 1000);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            
+            // Restaurar el botón
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+            submitButton.style.backgroundColor = '';
+            
+            // Mostrar alerta de error
+            alertDiv.style.display = 'block';
+            alertDiv.style.backgroundColor = '#f8d7da';
+            alertDiv.style.color = '#721c24';
+            alertDiv.style.border = '1px solid #f5c6cb';
+            alertDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error de conexión. Por favor verifica tu conexión a internet e intenta nuevamente.';
+        });
+    });
+});
+</script>
+
+
+
+
 </body>
 </html>
