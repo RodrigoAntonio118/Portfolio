@@ -4,6 +4,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
+header('Content-Type: application/json'); // Indica que la respuesta será JSON
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
@@ -19,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'kayvazquez65@gmail.com';
-        $mail->Password = 'jvdzevpyjgqfcdyk';
+        $mail->Password = 'jvdzevpyjgqfcdyk'; // Contraseña de aplicación
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
@@ -40,9 +42,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             . "</body></html>";
 
         $mail->send();
-        echo "<script>alert('Mensaje enviado exitosamente.'); window.location.href='index.php';</script>";
+
+        // Respuesta JSON para el script
+        echo json_encode(['success' => true]);
+        exit;
     } catch (Exception $e) {
-        echo "<script>alert('Error: {$mail->ErrorInfo}'); window.location.href='index.php';</script>";
+        echo json_encode([
+            'success' => false,
+            'message' => "Error al enviar el mensaje: {$mail->ErrorInfo}"
+        ]);
+        exit;
     }
 }
 ?>
