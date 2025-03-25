@@ -1111,37 +1111,15 @@
                 </div>
             </div>
             
-            <div class="contact-form">
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                
-                <form action="{{ route('contact.send') }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Nombre Completo *" required>
-                        @error('name')<span class="text-danger">{{ $message }}</span>@enderror
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Email *" required>
-                        @error('email')<span class="text-danger">{{ $message }}</span>@enderror
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="company" class="form-control" placeholder="Empresa">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="subject" class="form-control" placeholder="Asunto *" required>
-                        @error('subject')<span class="text-danger">{{ $message }}</span>@enderror
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" class="form-control" placeholder="Mensaje *" required></textarea>
-                        @error('message')<span class="text-danger">{{ $message }}</span>@enderror
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensaje</button>
-                </form>
-            </div>
+            <h2>Contacto</h2>
+            <form action="send_email.php" method="POST">
+                <input type="text" name="name" placeholder="Nombre Completo *" required>
+                <input type="email" name="email" placeholder="Email *" required>
+                <input type="text" name="company" placeholder="Empresa">
+                <input type="text" name="subject" placeholder="Asunto *" required>
+                <textarea name="message" placeholder="Mensaje *" required></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
         </div>
     </div>
 </section>
